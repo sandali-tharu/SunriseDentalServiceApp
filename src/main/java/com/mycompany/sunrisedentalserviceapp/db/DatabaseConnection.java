@@ -1,4 +1,4 @@
-package com.mycompany.sunrisedentalserviceapp;
+package com.mycompany.sunrisedentalserviceapp.db;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -16,6 +16,7 @@ public class DatabaseConnection {
     private final String username = "root";
     private final String password = "";
 
+    // Private Constructor
     private DatabaseConnection() throws SQLException {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -25,13 +26,15 @@ public class DatabaseConnection {
         }
     }
 
-    public static DatabaseConnection getInstance() throws SQLException {
-        if (instance == null || instance.getConnection().isClosed()) {
+    // Thread-safe Singleton Instance Access Method
+    public static synchronized DatabaseConnection getInstance() throws SQLException {
+        if (instance == null || instance.getConnection() == null || instance.getConnection().isClosed()) {
             instance = new DatabaseConnection();
         }
         return instance;
     }
 
+    // Returns active database connection
     public Connection getConnection() {
         return connection;
     }
