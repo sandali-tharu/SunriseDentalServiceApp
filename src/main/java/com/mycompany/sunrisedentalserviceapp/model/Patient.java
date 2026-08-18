@@ -4,7 +4,7 @@ package com.mycompany.sunrisedentalserviceapp.model;
  * Model class representing a Patient entity
  */
 public class Patient {
-    private int patientId;
+    private String patientId;
     private String name;
     private String address;
     private String contactNumber;
@@ -15,7 +15,7 @@ public class Patient {
     }
 
     // Full Parameterized Constructor
-    public Patient(int patientId, String name, String address, String contactNumber, String medicalHistory) {
+    public Patient(String patientId, String name, String address, String contactNumber, String medicalHistory) {
         this.patientId = patientId;
         this.name = name;
         this.address = address;
@@ -32,11 +32,11 @@ public class Patient {
     }
 
     // Getters and Setters
-    public int getPatientId() {
+    public String getPatientId() {
         return patientId;
     }
 
-    public void setPatientId(int patientId) {
+    public void setPatientId(String patientId) {
         this.patientId = patientId;
     }
 

@@ -11,10 +11,9 @@ public class Appointment {
     private String appointmentTime;
     private String status;
 
-    // Default Constructor
     public Appointment() {
     }
-    // Full Constructor
+
     public Appointment(int appointmentId, String appointmentNo, int patientId, 
                        String dentistName, String treatmentType, 
                        String appointmentDate, String appointmentTime, String status) {
@@ -28,7 +27,6 @@ public class Appointment {
         this.status = status;
     }
 
-    // Constructor for DB Insert (without ID)
     public Appointment(String appointmentNo, int patientId, String dentistName, 
                        String treatmentType, String appointmentDate, 
                        String appointmentTime, String status) {
@@ -41,68 +39,27 @@ public class Appointment {
         this.status = status;
     }
 
-    public int getAppointmentId() {
-        return appointmentId;
-    }
+    public int getAppointmentId() { return appointmentId; }
+    public void setAppointmentId(int appointmentId) { this.appointmentId = appointmentId; }
 
-    public void setAppointmentId(int appointmentId) {
-        this.appointmentId = appointmentId;
-    }
+    public String getAppointmentNo() { return appointmentNo; }
+    public void setAppointmentNo(String appointmentNo) { this.appointmentNo = appointmentNo; }
 
-    public String getAppointmentNo() {
-        return appointmentNo;
-    }
+    public int getPatientId() { return patientId; }
+    public void setPatientId(int patientId) { this.patientId = patientId; }
 
-    public void setAppointmentNo(String appointmentNo) {
-        this.appointmentNo = appointmentNo;
-    }
+    public String getDentistName() { return dentistName; }
+    public void setDentistName(String dentistName) { this.dentistName = dentistName; }
 
-    public int getPatientId() {
-        return patientId;
-    }
+    public String getTreatmentType() { return treatmentType; }
+    public void setTreatmentType(String treatmentType) { this.treatmentType = treatmentType; }
 
-    public void setPatientId(int patientId) {
-        this.patientId = patientId;
-    }
+    public String getAppointmentDate() { return appointmentDate; }
+    public void setAppointmentDate(String appointmentDate) { this.appointmentDate = appointmentDate; }
 
-    public String getDentistName() {
-        return dentistName;
-    }
+    public String getAppointmentTime() { return appointmentTime; }
+    public void setAppointmentTime(String appointmentTime) { this.appointmentTime = appointmentTime; }
 
-    public void setDentistName(String dentistName) {
-        this.dentistName = dentistName;
-    }
-
-    public String getTreatmentType() {
-        return treatmentType;
-    }
-
-    public void setTreatmentType(String treatmentType) {
-        this.treatmentType = treatmentType;
-    }
-
-    public String getAppointmentDate() {
-        return appointmentDate;
-    }
-
-    public void setAppointmentDate(String appointmentDate) {
-        this.appointmentDate = appointmentDate;
-    }
-
-    public String getAppointmentTime() {
-        return appointmentTime;
-    }
-
-    public void setAppointmentTime(String appointmentTime) {
-        this.appointmentTime = appointmentTime;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-    
+    public String getStatus() { return status; }
+    public void setStatus(String status) { this.status = status; }
 }
