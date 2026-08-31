@@ -1,7 +1,7 @@
 package com.mycompany.sunrisedentalserviceapp.dao;
 
 import com.mycompany.sunrisedentalserviceapp.model.Appointment;
-import com.mycompany.sunrisedentalserviceapp.db.DatabaseConnection;
+import com.mycompany.sunrisedentalserviceapp.DatabaseConnection;
 
 import java.sql.Connection;
 import java.sql.CallableStatement;
@@ -15,7 +15,7 @@ public class AppointmentDAO {
 
     public boolean addAppointment(Appointment app) {
         try {
-            Connection conn = DatabaseConnection.getConnection();
+            Connection conn = DatabaseConnection.getInstance().getConnection();
             String sql = "{CALL AddAppointment(?, ?, ?, ?, ?, ?)}";
 
             CallableStatement stmt = conn.prepareCall(sql);
@@ -32,7 +32,6 @@ public class AppointmentDAO {
             app.setAppointmentNo(generatedNo);
 
             stmt.close();
-            conn.close();
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -43,7 +42,7 @@ public class AppointmentDAO {
     public List<Appointment> getAllAppointments() {
         List<Appointment> list = new ArrayList<>();
         try {
-            Connection conn = DatabaseConnection.getConnection();
+            Connection conn = DatabaseConnection.getInstance().getConnection();
             String sql = "SELECT * FROM appointments ORDER BY appointment_id DESC";
 
             PreparedStatement stmt = conn.prepareStatement(sql);
@@ -65,7 +64,6 @@ public class AppointmentDAO {
 
             rs.close();
             stmt.close();
-            conn.close();
         } catch (Exception e) {
             e.printStackTrace();
         }

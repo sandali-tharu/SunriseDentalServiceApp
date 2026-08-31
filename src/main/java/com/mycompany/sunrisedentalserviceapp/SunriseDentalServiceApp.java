@@ -1,16 +1,15 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- */
-
 package com.mycompany.sunrisedentalserviceapp;
 
-/**
- *
- * @author USER
- */
+import com.mycompany.sunrisedentalserviceapp.view.AppointmentView;
+
 public class SunriseDentalServiceApp {
 
     public static void main(String[] args) {
-        System.out.println("Hello World!");
+        // Form එක visible කරවීම
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new AppointmentView().setVisible(true);
+            }
+        });
     }
 }
