@@ -3,7 +3,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package com.mycompany.sunrisedentalserviceapp.view;
-
+import controller.PatientController;
+import javax.swing.table.DefaultTableModel;
+import java.util.List;
+import com.mycompany.sunrisedentalserviceapp.model.Patient;
 import com.mycompany.sunrisedentalserviceapp.DatabaseConnection;
 import javax.swing.JOptionPane;
 
@@ -12,15 +15,34 @@ import javax.swing.JOptionPane;
  * @author USER
  */
 public class PatientView extends javax.swing.JFrame {
-    
+    private PatientController patientController;
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(PatientView.class.getName());
 
     /**
      * Creates new form PatientView1
-     */
-    public PatientView() {
-        initComponents();
-    }
+     */public PatientView() {
+         
+    initComponents();
+    patientController = new PatientController(); 
+    loadPatientTable();                           
+}
+private void loadPatientTable() {
+        DefaultTableModel model = (DefaultTableModel) tblPatients.getModel();
+        model.setRowCount(0);
+
+        List<Patient> list = patientController.getAllPatients();
+        for (Patient p : list) {
+            model.addRow(new Object[]{
+                p.getPatientId(),
+                p.getName(),
+                p.getAge(),
+                p.getGender(),
+                p.getContactNo(),
+                p.getAddress()
+            });
+        }
+    }     
+   
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -38,7 +60,7 @@ public class PatientView extends javax.swing.JFrame {
         btnClear = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblPatients = new javax.swing.JTable();
         jLabel6 = new javax.swing.JLabel();
         txtPatientId = new javax.swing.JTextField();
         txtFullName = new javax.swing.JTextField();
@@ -76,8 +98,8 @@ public class PatientView extends javax.swing.JFrame {
 
         jLabel5.setText("Contact No:");
 
-        jTable1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblPatients.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        tblPatients.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -85,7 +107,7 @@ public class PatientView extends javax.swing.JFrame {
                 "ID", "Name", "Age", "Contact"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tblPatients);
 
         jLabel6.setText("Address:");
 
@@ -287,35 +309,27 @@ txtPatientId.requestFocus();        // TODO add your handling code here:
     }//GEN-LAST:event_btnClearActionPerformed
 
     private void btnRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegisterActionPerformed
-String patientId = txtPatientId.getText().trim();
-String fullName = txtFullName.getText().trim();
-String age = txtAge.getText().trim();
-String contact = txtContact.getText().trim();
-String address = txtAddress.getText().trim();
-
-if (patientId.isEmpty() || fullName.isEmpty()) {
-    JOptionPane.showMessageDialog(this, "Please fill required fields!", "Validation Error", JOptionPane.ERROR_MESSAGE);
-    return;
-}
-
 try {
-    java.sql.Connection con = DatabaseConnection.getInstance().getConnection();
-    String sql = "INSERT INTO patient VALUES (?, ?, ?, ?, ?)";
-    java.sql.PreparedStatement pstm = con.prepareStatement(sql);
-    pstm.setString(1, patientId);
-    pstm.setString(2, fullName);
-    pstm.setInt(3, Integer.parseInt(age));
-    pstm.setString(4, contact);
-    pstm.setString(5, address);
+        int id = Integer.parseInt(txtPatientId.getText().trim());
+        String name = txtFullName.getText().trim();
+        int age = Integer.parseInt(txtAge.getText().trim());
+       String gender = "Male"; 
+        String contact = txtContact.getText().trim();
+        String address = txtAddress.getText().trim();
 
-    int rows = pstm.executeUpdate();
-    if (rows > 0) {
-        JOptionPane.showMessageDialog(this, "Patient Registered Successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
-        btnClearActionPerformed(null);
+        boolean success = patientController.addPatient(id, name, age, gender, contact, address);
+
+        if (success) {
+            JOptionPane.showMessageDialog(this, "Patient Registered Successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+            loadPatientTable();
+            btnClearActionPerformed(null);
+        } else {
+            JOptionPane.showMessageDialog(this, "Failed to Register Patient!", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    } catch (NumberFormatException e) {
+        JOptionPane.showMessageDialog(this, "Please enter valid numbers for Patient ID and Age!", "Validation Error", JOptionPane.ERROR_MESSAGE);
     }
-} catch (Exception e) {
-    JOptionPane.showMessageDialog(this, "Database Error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-}        // TODO add your handling code here:
+      // TODO add your handling code here:
     }//GEN-LAST:event_btnRegisterActionPerformed
 
     /**
@@ -357,7 +371,7 @@ try {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tblPatients;
     private javax.swing.JTextField txtAddress;
     private javax.swing.JTextField txtAge;
     private javax.swing.JTextField txtContact;

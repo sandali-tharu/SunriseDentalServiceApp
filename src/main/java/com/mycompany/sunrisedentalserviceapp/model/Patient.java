@@ -1,42 +1,30 @@
 package com.mycompany.sunrisedentalserviceapp.model;
 
-/**
- * Model class representing a Patient entity
- */
 public class Patient {
-    private String patientId;
+    private int patientId;
     private String name;
+    private int age;
+    private String gender;
+    private String contactNo;
     private String address;
-    private String contactNumber;
-    private String medicalHistory;
 
-    // Default Constructor
     public Patient() {
     }
 
-    // Full Parameterized Constructor
-    public Patient(String patientId, String name, String address, String contactNumber, String medicalHistory) {
+    public Patient(int patientId, String name, int age, String gender, String contactNo, String address) {
         this.patientId = patientId;
         this.name = name;
+        this.age = age;
+        this.gender = gender;
+        this.contactNo = contactNo;
         this.address = address;
-        this.contactNumber = contactNumber;
-        this.medicalHistory = medicalHistory;
     }
 
-    // Constructor without ID (for Database insert operations)
-    public Patient(String name, String address, String contactNumber, String medicalHistory) {
-        this.name = name;
-        this.address = address;
-        this.contactNumber = contactNumber;
-        this.medicalHistory = medicalHistory;
-    }
-
-    // Getters and Setters
-    public String getPatientId() {
+    public int getPatientId() {
         return patientId;
     }
 
-    public void setPatientId(String patientId) {
+    public void setPatientId(int patientId) {
         this.patientId = patientId;
     }
 
@@ -48,27 +36,35 @@ public class Patient {
         this.name = name;
     }
 
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public String getContactNo() {
+        return contactNo;
+    }
+
+    public void setContactNo(String contactNo) {
+        this.contactNo = contactNo;
+    }
+
     public String getAddress() {
         return address;
     }
 
     public void setAddress(String address) {
         this.address = address;
-    }
-
-    public String getContactNumber() {
-        return contactNumber;
-    }
-
-    public void setContactNumber(String contactNumber) {
-        this.contactNumber = contactNumber;
-    }
-
-    public String getMedicalHistory() {
-        return medicalHistory;
-    }
-
-    public void setMedicalHistory(String medicalHistory) {
-        this.medicalHistory = medicalHistory;
     }
 }
