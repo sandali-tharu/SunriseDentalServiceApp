@@ -1,13 +1,18 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package controller;
 
-/**
- *
- * @author USER
- */
+import javax.swing.table.DefaultTableModel;
+
 public class DentistController {
-    
+
+    public boolean saveDentist(String dentistId, String name, String specialization, String phone, String email, String qualification) {
+        System.out.println("Saving Dentist: " + name);
+        return true; 
+    }
+
+   
+    public void loadTableData(DefaultTableModel model) {
+       
+        model.setRowCount(0); 
+       
+    }
 }
