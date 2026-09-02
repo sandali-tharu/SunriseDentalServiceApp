@@ -13,7 +13,8 @@ public class DentistDAO {
 
     public boolean addDentist(Dentist dentist) {
         String query = "INSERT INTO dentists (dentist_id, name, specialization, phone, email, qualification) VALUES (?, ?, ?, ?, ?, ?)";
-        try (Connection conn = DatabaseConnection.getConnection();
+        
+        try (Connection conn = DatabaseConnection.getInstance().getConnection();
              PreparedStatement pstmt = conn.prepareStatement(query)) {
 
             pstmt.setString(1, dentist.getDentistId());
@@ -33,7 +34,8 @@ public class DentistDAO {
     public List<Dentist> getAllDentists() {
         List<Dentist> list = new ArrayList<>();
         String query = "SELECT * FROM dentists";
-        try (Connection conn = DatabaseConnection.getConnection();
+        
+        try (Connection conn = DatabaseConnection.getInstance().getConnection();
              PreparedStatement pstmt = conn.prepareStatement(query);
              ResultSet rs = pstmt.executeQuery()) {
 
