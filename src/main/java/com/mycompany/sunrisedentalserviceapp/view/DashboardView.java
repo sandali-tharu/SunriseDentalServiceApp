@@ -188,6 +188,7 @@ this.dispose();        // TODO add your handling code here:
 
     private void btnBillingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBillingActionPerformed
 BillingView billingView = new BillingView();
+
 billingView.setVisible(true);
 billingView.setLocationRelativeTo(null);
 this.dispose();        // TODO add your handling code here:
