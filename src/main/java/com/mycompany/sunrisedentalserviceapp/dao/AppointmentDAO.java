@@ -23,7 +23,7 @@ public class AppointmentDAO {
             stmt.setString(3, app.getTreatmentType());
             stmt.setString(4, app.getAppointmentDate());
 
-            // Time format එක HH:MM නම් පමණක් :00 සකස් කිරීම
+            
             String timeStr = app.getAppointmentTime();
             if (timeStr != null && timeStr.length() == 5) {
                 timeStr += ":00";
@@ -82,7 +82,7 @@ public class AppointmentDAO {
             stmt.setString(3, app.getTreatmentType());
             stmt.setString(4, app.getAppointmentDate());
 
-            // Time format එක HH:MM නම් පමණක් :00 සකස් කිරීම
+            
             String timeStr = app.getAppointmentTime();
             if (timeStr != null && timeStr.length() == 5) {
                 timeStr += ":00";

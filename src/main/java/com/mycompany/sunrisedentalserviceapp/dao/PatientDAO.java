@@ -14,13 +14,30 @@ public class PatientDAO {
     public boolean addPatient(Patient patient) {
         try {
             Connection conn = DatabaseConnection.getInstance().getConnection();
-            String sql = "INSERT INTO patient (name, age, contact_no, address) VALUES (?, ?, ?, ?)";
+            
+            // 1. Check if Patient ID already exists in the database
+            String checkSql = "SELECT COUNT(*) FROM patient WHERE patient_id = ?";
+            PreparedStatement checkStmt = conn.prepareStatement(checkSql);
+            checkStmt.setInt(1, patient.getPatientId());
+            ResultSet rs = checkStmt.executeQuery();
+            
+            if (rs.next() && rs.getInt(1) > 0) {
+                // Duplicate ID found!
+                rs.close();
+                checkStmt.close();
+                return false; 
+            }
+            rs.close();
+            checkStmt.close();
 
+            // 2. Insert with the explicit Patient ID
+            String sql = "INSERT INTO patient (patient_id, name, age, contact_no, address) VALUES (?, ?, ?, ?, ?)";
             PreparedStatement stmt = conn.prepareStatement(sql);
-            stmt.setString(1, patient.getName());
-            stmt.setInt(2, patient.getAge());
-            stmt.setString(3, patient.getContactNo());
-            stmt.setString(4, patient.getAddress());
+            stmt.setInt(1, patient.getPatientId());
+            stmt.setString(2, patient.getName());
+            stmt.setInt(3, patient.getAge());
+            stmt.setString(4, patient.getContactNo());
+            stmt.setString(5, patient.getAddress());
 
             int rows = stmt.executeUpdate();
             stmt.close();

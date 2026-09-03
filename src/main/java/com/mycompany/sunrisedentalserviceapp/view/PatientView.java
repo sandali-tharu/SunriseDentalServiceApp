@@ -214,21 +214,23 @@ public class PatientView extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>                        
 
-    private void btnRegisterActionPerformed(java.awt.event.ActionEvent evt) {
+    private void btnRegisterActionPerformed(java.awt.event.ActionEvent evt) {                                            
         try {
+            String patientIdStr = txtPatientId.getText().trim();
             String name = txtFullName.getText().trim();
             String ageText = txtAge.getText().trim();
             String contactNo = txtContact.getText().trim();
             String address = txtAddress.getText().trim();
 
-            if (name.isEmpty() || ageText.isEmpty() || contactNo.isEmpty() || address.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Please fill in all fields!", "Validation Error", JOptionPane.WARNING_MESSAGE);
+            if (patientIdStr.isEmpty() || name.isEmpty() || ageText.isEmpty() || contactNo.isEmpty() || address.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Please fill in all fields (including Patient ID)!", "Validation Error", JOptionPane.WARNING_MESSAGE);
                 return;
             }
 
+            int patientId = Integer.parseInt(patientIdStr);
             int age = Integer.parseInt(ageText);
 
-            Patient patient = new Patient(name, age, contactNo, address);
+            Patient patient = new Patient(patientId, name, age, contactNo, address);
             boolean isSuccess = patientController.addPatient(patient);
 
             if (isSuccess) {
@@ -236,15 +238,15 @@ public class PatientView extends javax.swing.JFrame {
                 loadPatientTable();
                 btnClearActionPerformed(null);
             } else {
-                JOptionPane.showMessageDialog(this, "Failed to Register Patient!", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Error: Patient ID already exists!", "Duplicate Error", JOptionPane.ERROR_MESSAGE);
             }
 
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "Please enter a valid number for Age!", "Input Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Please enter valid numeric values for Patient ID and Age!", "Input Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
-    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {                                          
+    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {                                        
         try {
             String patientIdStr = txtPatientId.getText().trim();
             if (patientIdStr.isEmpty()) {
@@ -272,9 +274,9 @@ public class PatientView extends javax.swing.JFrame {
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "Please enter valid numbers for Patient ID and Age!", "Validation Error", JOptionPane.ERROR_MESSAGE);
         }
-    }                                         
+    }                                       
 
-    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {                                          
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {                                        
         try {
             String patientIdStr = txtPatientId.getText().trim();
             if (patientIdStr.isEmpty()) {
@@ -299,15 +301,15 @@ public class PatientView extends javax.swing.JFrame {
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "Please select a valid Patient ID to delete!", "Validation Error", JOptionPane.ERROR_MESSAGE);
         }
-    }                                         
+    }                                       
 
-    private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {                                         
+    private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {                                       
         txtPatientId.setText("");
         txtFullName.setText("");
         txtAge.setText("");
         txtContact.setText("");
         txtAddress.setText("");
-    }                                        
+    }                                      
 
     public static void main(String args[]) {
         try {
@@ -344,5 +346,5 @@ public class PatientView extends javax.swing.JFrame {
     private javax.swing.JTextField txtContact;
     private javax.swing.JTextField txtFullName;
     private javax.swing.JTextField txtPatientId;
-    // End of variables declaration                     
+    // End of variables declaration                   
 }
