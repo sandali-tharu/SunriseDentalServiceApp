@@ -31,6 +31,41 @@ public class DentistDAO {
         }
     }
 
+    public boolean updateDentist(Dentist dentist) {
+        String query = "UPDATE dentists SET name = ?, specialization = ?, phone = ?, email = ?, qualification = ? WHERE dentist_id = ?";
+        
+        try (Connection conn = DatabaseConnection.getInstance().getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(query)) {
+
+            pstmt.setString(1, dentist.getName());
+            pstmt.setString(2, dentist.getSpecialization());
+            pstmt.setString(3, dentist.getPhone());
+            pstmt.setString(4, dentist.getEmail());
+            pstmt.setString(5, dentist.getQualification());
+            pstmt.setString(6, dentist.getDentistId());
+
+            return pstmt.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean deleteDentist(String dentistId) {
+        String query = "DELETE FROM dentists WHERE dentist_id = ?";
+        
+        try (Connection conn = DatabaseConnection.getInstance().getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(query)) {
+
+            pstmt.setString(1, dentistId);
+
+            return pstmt.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
     public List<Dentist> getAllDentists() {
         List<Dentist> list = new ArrayList<>();
         String query = "SELECT * FROM dentists";

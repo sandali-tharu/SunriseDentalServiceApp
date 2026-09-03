@@ -162,45 +162,42 @@ public class DashboardView extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnPatientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPatientActionPerformed
-PatientView patientView = new PatientView();
-patientView.setVisible(true);
-patientView.setLocationRelativeTo(null);
-this.dispose();        // TODO add your handling code here:
-    }//GEN-LAST:event_btnPatientActionPerformed
+//GEN-LAST:event_btnPatientActionPerformed
 
-    private void btnAppointmentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAppointmentActionPerformed
-                                              
-   
+private void btnPatientActionPerformed(java.awt.event.ActionEvent evt) {                                            
+    PatientView patientView = new PatientView();
+    patientView.setLocationRelativeTo(null);
+    patientView.setVisible(true);
+    this.dispose();
+}                                          
+
+private void btnAppointmentActionPerformed(java.awt.event.ActionEvent evt) {                                               
     AppointmentView appView = new AppointmentView();
-    appView.setVisible(true);
     appView.setLocationRelativeTo(null);
+    appView.setVisible(true);
     this.dispose();
-      // TODO add your handling code here:
-    }//GEN-LAST:event_btnAppointmentActionPerformed
+}                                              
 
-    private void btnBillingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBillingActionPerformed
-BillingView billingView = new BillingView();
-billingView.setVisible(true);
-billingView.setLocationRelativeTo(null);
-this.dispose();        // TODO add your handling code here:
-    }//GEN-LAST:event_btnBillingActionPerformed
+private void btnBillingActionPerformed(java.awt.event.ActionEvent evt) {                                            
+    BillingView billingView = new BillingView();
+    billingView.setLocationRelativeTo(null);
+    billingView.setVisible(true);
+    this.dispose();
+}                                          
 
-    private void btnReportsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportsActionPerformed
-ReportsView reportsView = new ReportsView();
-reportsView.setVisible(true);
-reportsView.setLocationRelativeTo(null);
-this.dispose();        // TODO add your handling code here:
-    }//GEN-LAST:event_btnReportsActionPerformed
+private void btnReportsActionPerformed(java.awt.event.ActionEvent evt) {                                            
+    ReportsView reportsView = new ReportsView();
+    reportsView.setLocationRelativeTo(null);
+    reportsView.setVisible(true);
+    this.dispose();
+}                                          
 
-    private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
-                                         
+private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {                                          
     LoginView loginView = new LoginView();
-    loginView.setVisible(true);
     loginView.setLocationRelativeTo(null);
+    loginView.setVisible(true);
     this.dispose();
-      // TODO add your handling code here:
-    }//GEN-LAST:event_btnLogoutActionPerformed
+}                                         
 
     /**
      * @param args the command line arguments

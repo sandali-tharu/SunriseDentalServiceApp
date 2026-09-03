@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package com.mycompany.sunrisedentalserviceapp.view;
+
 import controller.DentistController;
 
 /**
@@ -18,6 +19,9 @@ public class DentistView extends javax.swing.JFrame {
      */
     public DentistView() {
         initComponents();
+        // Load initial table data when the form opens
+        DentistController ctrl = new DentistController();
+        ctrl.loadTableData((javax.swing.table.DefaultTableModel) tblDentists.getModel());
     }
 
     /**
@@ -124,8 +128,6 @@ public class DentistView extends javax.swing.JFrame {
         jLabel7.setText("Email:");
 
         jLabel8.setText("Qualification:");
-
-        txtDentistId.setEditable(false);
 
         cmbSpecialization.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "General Dentistry", " ", "Orthodontics", " ", "Periodontics", " ", "Endodontics", " ", "Oral Surgery" }));
 
@@ -342,127 +344,171 @@ public class DentistView extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
-                                    
-   
-    if (txtName.getText().trim().isEmpty() || txtPhone.getText().trim().isEmpty()) {
-        javax.swing.JOptionPane.showMessageDialog(this, 
-            "Please fill in the Full Name and Phone Number!", 
-            "Validation Error", 
-            javax.swing.JOptionPane.WARNING_MESSAGE);
-        return;
-    }
+    private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {                                        
+        if (txtName.getText().trim().isEmpty() || txtPhone.getText().trim().isEmpty()) {
+            javax.swing.JOptionPane.showMessageDialog(this, 
+                "Please fill in the Full Name and Phone Number!", 
+                "Validation Error", 
+                javax.swing.JOptionPane.WARNING_MESSAGE);
+            return;
+        }
 
-    
-    DentistController ctrl = new DentistController();
-    boolean success = ctrl.saveDentist(
-        txtDentistId.getText().trim(),
-        txtName.getText().trim(),
-        cmbSpecialization.getSelectedItem().toString(),
-        txtPhone.getText().trim(),
-        txtEmail.getText().trim(),
-        txtQualification.getText().trim()
-    );
+        DentistController ctrl = new DentistController();
+        boolean success = ctrl.saveDentist(
+            txtDentistId.getText().trim(),
+            txtName.getText().trim(),
+            cmbSpecialization.getSelectedItem().toString(),
+            txtPhone.getText().trim(),
+            txtEmail.getText().trim(),
+            txtQualification.getText().trim()
+        );
 
-    if (success) {
-        javax.swing.JOptionPane.showMessageDialog(this, 
-            "Dentist Saved Successfully!", 
-            "Success", 
-            javax.swing.JOptionPane.INFORMATION_MESSAGE);
+        if (success) {
+            javax.swing.JOptionPane.showMessageDialog(this, 
+                "Dentist Saved Successfully!", 
+                "Success", 
+                javax.swing.JOptionPane.INFORMATION_MESSAGE);
             
-       
-        ctrl.loadTableData((javax.swing.table.DefaultTableModel) tblDentists.getModel());
-        btnClearActionPerformed(evt);
-    }
-       // TODO add your handling code here:
-    }//GEN-LAST:event_btnSaveActionPerformed
+            ctrl.loadTableData((javax.swing.table.DefaultTableModel) tblDentists.getModel());
+            btnClearActionPerformed(evt);
+        } else {
+            javax.swing.JOptionPane.showMessageDialog(this, 
+                "Failed to save dentist record.", 
+                "Error", 
+                javax.swing.JOptionPane.ERROR_MESSAGE);
+        }
+    }                                       
 
-    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
-                                        
-    if (txtDentistId.getText().trim().isEmpty()) {
-        javax.swing.JOptionPane.showMessageDialog(this, 
-            "Please select a Dentist from the table to update!", 
-            "Selection Required", 
-            javax.swing.JOptionPane.WARNING_MESSAGE);
-        return;
-    }
+    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {                                          
+        if (txtDentistId.getText().trim().isEmpty()) {
+            javax.swing.JOptionPane.showMessageDialog(this, 
+                "Please select a Dentist from the table to update!", 
+                "Selection Required", 
+                javax.swing.JOptionPane.WARNING_MESSAGE);
+            return;
+        }
 
-    javax.swing.JOptionPane.showMessageDialog(this, 
-        "Dentist Record Updated Successfully!", 
-        "Update Status", 
-        javax.swing.JOptionPane.INFORMATION_MESSAGE);
-        
-   
-       // TODO add your handling code here:
-    }//GEN-LAST:event_btnUpdateActionPerformed
+        if (txtName.getText().trim().isEmpty() || txtPhone.getText().trim().isEmpty()) {
+            javax.swing.JOptionPane.showMessageDialog(this, 
+                "Please fill in the Full Name and Phone Number!", 
+                "Validation Error", 
+                javax.swing.JOptionPane.WARNING_MESSAGE);
+            return;
+        }
 
-    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-                                       
-    if (txtDentistId.getText().trim().isEmpty()) {
-        javax.swing.JOptionPane.showMessageDialog(this, 
-            "Please select a Dentist to delete!", 
-            "Selection Required", 
-            javax.swing.JOptionPane.WARNING_MESSAGE);
-        return;
-    }
+        DentistController ctrl = new DentistController();
+        boolean success = ctrl.updateDentist(
+            txtDentistId.getText().trim(),
+            txtName.getText().trim(),
+            cmbSpecialization.getSelectedItem().toString(),
+            txtPhone.getText().trim(),
+            txtEmail.getText().trim(),
+            txtQualification.getText().trim()
+        );
 
-    int confirm = javax.swing.JOptionPane.showConfirmDialog(this, 
-        "Are you sure you want to delete this Dentist record?", 
-        "Confirm Delete", 
-        javax.swing.JOptionPane.YES_NO_OPTION);
-
-    if (confirm == javax.swing.JOptionPane.YES_OPTION) {
-        javax.swing.JOptionPane.showMessageDialog(this, 
-            "Dentist Record Deleted!", 
-            "Deleted", 
-            javax.swing.JOptionPane.INFORMATION_MESSAGE);
+        if (success) {
+            javax.swing.JOptionPane.showMessageDialog(this, 
+                "Dentist Record Updated Successfully!", 
+                "Update Status", 
+                javax.swing.JOptionPane.INFORMATION_MESSAGE);
             
-        btnClearActionPerformed(evt);
-       
-    }
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnDeleteActionPerformed
+            ctrl.loadTableData((javax.swing.table.DefaultTableModel) tblDentists.getModel());
+            btnClearActionPerformed(evt);
+        } else {
+            javax.swing.JOptionPane.showMessageDialog(this, 
+                "Failed to update dentist record.", 
+                "Error", 
+                javax.swing.JOptionPane.ERROR_MESSAGE);
+        }
+    }                                         
 
-    private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
-                                         
-    txtDentistId.setText("");
-    txtName.setText("");
-    cmbSpecialization.setSelectedIndex(0);
-    txtPhone.setText("");
-    txtEmail.setText("");
-    txtQualification.setText("");
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnClearActionPerformed
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {                                          
+        if (txtDentistId.getText().trim().isEmpty()) {
+            javax.swing.JOptionPane.showMessageDialog(this, 
+                "Please select a Dentist to delete!", 
+                "Selection Required", 
+                javax.swing.JOptionPane.WARNING_MESSAGE);
+            return;
+        }
 
-    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
-                                        
-    DashboardView dashboard = new DashboardView();
-    dashboard.setVisible(true);
-    this.dispose();
-       // TODO add your handling code here:
-    }//GEN-LAST:event_btnBackActionPerformed
+        int confirm = javax.swing.JOptionPane.showConfirmDialog(this, 
+            "Are you sure you want to delete this Dentist record?", 
+            "Confirm Delete", 
+            javax.swing.JOptionPane.YES_NO_OPTION);
 
-    private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
-                                         
-    String keyword = txtSearch.getText().trim();
-    if (keyword.isEmpty()) {
-        javax.swing.JOptionPane.showMessageDialog(this, "Please enter a Search Name or ID!");
-    } else {
-        javax.swing.JOptionPane.showMessageDialog(this, "Searching for: " + keyword);
-        
-    }
-      // TODO add your handling code here:
-    }//GEN-LAST:event_btnSearchActionPerformed
+        if (confirm == javax.swing.JOptionPane.YES_OPTION) {
+            DentistController ctrl = new DentistController();
+            boolean success = ctrl.deleteDentist(txtDentistId.getText().trim());
+
+            if (success) {
+                javax.swing.JOptionPane.showMessageDialog(this, 
+                    "Dentist Record Deleted!", 
+                    "Deleted", 
+                    javax.swing.JOptionPane.INFORMATION_MESSAGE);
+                
+                ctrl.loadTableData((javax.swing.table.DefaultTableModel) tblDentists.getModel());
+                btnClearActionPerformed(evt);
+            } else {
+                javax.swing.JOptionPane.showMessageDialog(this, 
+                    "Failed to delete dentist record.", 
+                    "Error", 
+                    javax.swing.JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }                                         
+
+    private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {                                         
+        txtDentistId.setText("");
+        txtName.setText("");
+        cmbSpecialization.setSelectedIndex(0);
+        txtPhone.setText("");
+        txtEmail.setText("");
+        txtQualification.setText("");
+    }                                        
+
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {                                        
+        DashboardView dashboard = new DashboardView();
+        dashboard.setVisible(true);
+        this.dispose();
+    }                                       
+
+    private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {                                          
+        String keyword = txtSearch.getText().trim();
+        DentistController ctrl = new DentistController();
+        if (keyword.isEmpty()) {
+            ctrl.loadTableData((javax.swing.table.DefaultTableModel) tblDentists.getModel());
+        } else {
+            ctrl.searchDentist(keyword, (javax.swing.table.DefaultTableModel) tblDentists.getModel());
+        }
+    }                                         
+
+    private void txtSearchKeyReleased(java.awt.event.KeyEvent evt) {                                      
+        String keyword = txtSearch.getText().trim();
+        DentistController ctrl = new DentistController();
+        if (keyword.isEmpty()) {
+            ctrl.loadTableData((javax.swing.table.DefaultTableModel) tblDentists.getModel());
+        } else {
+            ctrl.searchDentist(keyword, (javax.swing.table.DefaultTableModel) tblDentists.getModel());
+        }
+    }                                     
+
+    private void tblDentistsMouseClicked(java.awt.event.MouseEvent evt) {                                         
+        int selectedRow = tblDentists.getSelectedRow();
+        if (selectedRow != -1) {
+            javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel) tblDentists.getModel();
+            txtDentistId.setText(model.getValueAt(selectedRow, 0).toString());
+            txtName.setText(model.getValueAt(selectedRow, 1).toString());
+            cmbSpecialization.setSelectedItem(model.getValueAt(selectedRow, 2).toString());
+            txtPhone.setText(model.getValueAt(selectedRow, 3).toString());
+            txtEmail.setText(model.getValueAt(selectedRow, 4).toString());
+            txtQualification.setText(model.getValueAt(selectedRow, 5).toString());
+        }
+    }                                        
 
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -473,9 +519,7 @@ public class DentistView extends javax.swing.JFrame {
         } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
             logger.log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
 
-        /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> new DentistView().setVisible(true));
     }
 

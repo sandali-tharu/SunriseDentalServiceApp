@@ -2,7 +2,6 @@ package com.mycompany.sunrisedentalserviceapp.dao;
 
 import com.mycompany.sunrisedentalserviceapp.DatabaseConnection;
 import com.mycompany.sunrisedentalserviceapp.model.Patient;
-import com.mycompany.sunrisedentalserviceapp.DatabaseConnection;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -15,15 +14,13 @@ public class PatientDAO {
     public boolean addPatient(Patient patient) {
         try {
             Connection conn = DatabaseConnection.getInstance().getConnection();
-            String sql = "INSERT INTO patient (patient_id, name, age, gender, contact_no, address) VALUES (?, ?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO patient (name, age, contact_no, address) VALUES (?, ?, ?, ?)";
 
             PreparedStatement stmt = conn.prepareStatement(sql);
-            stmt.setString(1, String.valueOf(patient.getPatientId()));
-            stmt.setString(2, patient.getName());
-            stmt.setString(3, String.valueOf(patient.getAge()));
-            stmt.setString(4, patient.getGender());
-            stmt.setString(5, patient.getContactNo());
-            stmt.setString(6, patient.getAddress());
+            stmt.setString(1, patient.getName());
+            stmt.setInt(2, patient.getAge());
+            stmt.setString(3, patient.getContactNo());
+            stmt.setString(4, patient.getAddress());
 
             int rows = stmt.executeUpdate();
             stmt.close();
@@ -43,12 +40,11 @@ public class PatientDAO {
             PreparedStatement stmt = conn.prepareStatement(sql);
             ResultSet rs = stmt.executeQuery();
 
-while (rs.next()) {
+            while (rs.next()) {
                 Patient p = new Patient(
                     rs.getInt("patient_id"),
                     rs.getString("name"),
                     rs.getInt("age"), 
-                    rs.getString("gender"),
                     rs.getString("contact_no"),
                     rs.getString("address")
                 );
@@ -61,5 +57,43 @@ while (rs.next()) {
             e.printStackTrace();
         }
         return list;
+    }
+
+    public boolean updatePatient(Patient patient) {
+        try {
+            Connection conn = DatabaseConnection.getInstance().getConnection();
+            String sql = "UPDATE patient SET name = ?, age = ?, contact_no = ?, address = ? WHERE patient_id = ?";
+
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1, patient.getName());
+            stmt.setInt(2, patient.getAge());
+            stmt.setString(3, patient.getContactNo());
+            stmt.setString(4, patient.getAddress());
+            stmt.setInt(5, patient.getPatientId());
+
+            int rows = stmt.executeUpdate();
+            stmt.close();
+            return rows > 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean deletePatient(int patientId) {
+        try {
+            Connection conn = DatabaseConnection.getInstance().getConnection();
+            String sql = "DELETE FROM patient WHERE patient_id = ?";
+
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, patientId);
+
+            int rows = stmt.executeUpdate();
+            stmt.close();
+            return rows > 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 }
