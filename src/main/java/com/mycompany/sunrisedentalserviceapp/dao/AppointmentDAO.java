@@ -6,13 +6,27 @@ import com.mycompany.sunrisedentalserviceapp.DatabaseConnection;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 
 public class AppointmentDAO {
 
     // === Add Appointment ===
     public boolean addAppointment(Appointment app) {
+        try {
+            // Validate that the appointment date is not in the past
+            LocalDate selectedDate = LocalDate.parse(app.getAppointmentDate());
+            if (selectedDate.isBefore(LocalDate.now())) {
+                JOptionPane.showMessageDialog(null, "Cannot book appointments for past dates!", "Error", JOptionPane.ERROR_MESSAGE);
+                return false;
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Invalid date format! Please use YYYY-MM-DD.", "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+
         String sql = "INSERT INTO appointment (patient_id, dentist_name, treatment_type, appointment_date, appointment_time) VALUES (?, ?, ?, ?, ?)";
         try {
             Connection conn = DatabaseConnection.getInstance().getConnection();
@@ -23,7 +37,6 @@ public class AppointmentDAO {
             stmt.setString(3, app.getTreatmentType());
             stmt.setString(4, app.getAppointmentDate());
 
-            
             String timeStr = app.getAppointmentTime();
             if (timeStr != null && timeStr.length() == 5) {
                 timeStr += ":00";
@@ -72,6 +85,18 @@ public class AppointmentDAO {
 
     // === Update Appointment ===
     public boolean updateAppointment(Appointment app) {
+        try {
+            // Validate that the appointment date is not in the past
+            LocalDate selectedDate = LocalDate.parse(app.getAppointmentDate());
+            if (selectedDate.isBefore(LocalDate.now())) {
+                JOptionPane.showMessageDialog(null, "Cannot update appointments to past dates!", "Error", JOptionPane.ERROR_MESSAGE);
+                return false;
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Invalid date format! Please use YYYY-MM-DD.", "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+
         String sql = "UPDATE appointment SET patient_id = ?, dentist_name = ?, treatment_type = ?, appointment_date = ?, appointment_time = ? WHERE appointment_id = ?";
         try {
             Connection conn = DatabaseConnection.getInstance().getConnection();
@@ -82,7 +107,6 @@ public class AppointmentDAO {
             stmt.setString(3, app.getTreatmentType());
             stmt.setString(4, app.getAppointmentDate());
 
-            
             String timeStr = app.getAppointmentTime();
             if (timeStr != null && timeStr.length() == 5) {
                 timeStr += ":00";

@@ -13,7 +13,7 @@ public class Appointment {
     public Appointment() {
     }
 
-    // Full Constructor (appointment_id සහිතව - Database එකෙන් Read/Update කිරීමට)
+  
     public Appointment(int appointmentId, int patientId, String dentistName, 
                        String treatmentType, String appointmentDate, String appointmentTime) {
         this.appointmentId = appointmentId;
@@ -24,7 +24,7 @@ public class Appointment {
         this.appointmentTime = appointmentTime;
     }
 
-    // Constructor (appointment_id නොමැතිව - අලුතින් Insert කිරීමට)
+  
     public Appointment(int patientId, String dentistName, String treatmentType, 
                        String appointmentDate, String appointmentTime) {
         this.patientId = patientId;

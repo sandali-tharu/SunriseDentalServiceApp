@@ -390,7 +390,7 @@ private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {
         if (confirm == JOptionPane.YES_OPTION) {
             int appointmentId = Integer.parseInt(appIdStr);
 
-            // Direct SQL වෙනුවට Controller එක Call කිරීම
+          
             boolean success = appointmentController.deleteAppointment(appointmentId);
 
             if (success) {

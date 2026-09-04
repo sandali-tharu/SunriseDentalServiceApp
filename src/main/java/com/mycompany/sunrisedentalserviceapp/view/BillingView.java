@@ -25,13 +25,13 @@ public class BillingView extends javax.swing.JFrame {
      */
     public BillingView() {
         initComponents();
-        loadPaymentTable(); // Frame එක Open වෙද්දීම Table එකට Data Load වේ
+        loadPaymentTable(); 
     }
 
-    // === Database එකෙන් Table එකට Data Load කරන Method එක ===
+    
     private void loadPaymentTable() {
         DefaultTableModel model = (DefaultTableModel) tblTransactions.getModel();
-        model.setRowCount(0); // කලින් තිබූ Data ඉවත් කිරීම
+        model.setRowCount(0); 
 
         String sql = "SELECT bill_id, patient_id, patient_name, total_amount, status FROM payment ORDER BY bill_id DESC";
 

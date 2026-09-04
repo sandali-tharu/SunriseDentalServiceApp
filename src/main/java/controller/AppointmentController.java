@@ -32,9 +32,9 @@ public class AppointmentController {
         return appointmentDAO.getAllAppointments();
     }
 
-    // === මෙතැන සිට අලුතෙන් එකතු කළ යුතු කොටස් ===
+   
 
-    // View එකෙන් direct parameters එවද්දී භාවිතයට (Update)
+  
     public boolean updateAppointment(int appointmentId, int patientId, String dentistName, String treatmentType, String date, String time) {
         Appointment app = new Appointment();
         app.setAppointmentId(appointmentId);
@@ -47,7 +47,7 @@ public class AppointmentController {
         return appointmentDAO.updateAppointment(app);
     }
 
-    // Delete කිරීමේ Method එක
+    
     public boolean deleteAppointment(int appointmentId) {
         return appointmentDAO.deleteAppointment(appointmentId);
     }

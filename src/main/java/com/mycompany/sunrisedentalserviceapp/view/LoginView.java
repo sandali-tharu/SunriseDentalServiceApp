@@ -10,7 +10,7 @@ public class LoginView extends javax.swing.JFrame {
 
     public LoginView() {
         initComponents();
-        setLocationRelativeTo(null); // Screen එකේ මැදට View එක ගන්න
+        setLocationRelativeTo(null); 
     }
 
     @SuppressWarnings("unchecked")
